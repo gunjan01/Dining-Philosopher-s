@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1493222675 source:/home/gunjan/Desktop/OpenGL proj/test2/main.c
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<stdlib.h>
+	<math.h>
+
+1493226782 source:/home/gunjan/Desktop/OpenGL/test2/main.c
+	<GL/glut.h>
+	<stdlib.h>
+	<math.h>
+
