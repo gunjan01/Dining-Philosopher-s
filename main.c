@@ -7,7 +7,7 @@
 const int ScreenWidth = 640;
 const int ScreenHeight = 480;
 
-//void reshape(int x, int y);
+void reshape(int x, int y);
 
 
 void myInit(void)
@@ -19,44 +19,78 @@ void myInit(void)
 }
 
 
-void man()
+
+void spheres()
 {
 
-    glColor3f(0.9, 0.3, 0.2);
-
     glPushMatrix();
-    glTranslatef(90.0,290.0,0.0);
-   /*
-   glScalef(1.0,1.0,1.0);
-   glutSolidSphere(0.05,20,20);
-   glutReshapeFunc(reshape);
-   */
-    glRectf(50.0f,50.00f, 0.00f, -0.75f);
+    drawFilledCircle(550.0,330.0,10);
+    glPopMatrix();
+    glPushMatrix();
+    drawFilledCircle(90.0,330.0,10);
+    glPopMatrix();
+    glPushMatrix();
+    drawFilledCircle(400.0,130.0,10);
+    glPopMatrix();
+    glPushMatrix();
+    drawFilledCircle(200.0,130.0,10);
+    glPopMatrix();
+    glPushMatrix();
+    drawFilledCircle(290.0,455.0,10);
     glPopMatrix();
 
+}
+
+
+void man1()
+{
+    glColor3f(0.9, 0.3, 0.2);
 
    glPushMatrix();
-   glTranslatef(160.0,90.0,0.0);
-   glRectf(50.0f,50.00f, 0.00f, -0.75f);
+   glTranslatef(90.0,290.0,0.0);
+   glBegin(GL_TRIANGLES);
+   glVertex2f(-30.0f,0.0f);
+   glVertex2f(0.0f,30.0f);
+   glVertex2f(30.0f,0.0f);
+   glEnd();
+   glPopMatrix();
+
+   glPushMatrix();
+   glTranslatef(200.0,90.0,0.0);
+   glBegin(GL_TRIANGLES);
+   glVertex2f(-30.0f,0.0f);
+   glVertex2f(0.0f,30.0f);
+   glVertex2f(30.0f,0.0f);
+   glEnd();
    glPopMatrix();
 
    glPushMatrix();
    glTranslatef(400.0,90.0,0.0);
-   glRectf(50.0f,50.00f, 0.00f, -0.75f);
+   glBegin(GL_TRIANGLES);
+   glVertex2f(-30.0f,0.0f);
+   glVertex2f(0.0f,30.0f);
+   glVertex2f(30.0f,0.0f);
+   glEnd();
    glPopMatrix();
 
    glPushMatrix();
-   glTranslatef(490.0,290.0,0.0);
-   glRectf(50.0f,50.00f, 0.00f, -0.75f);
+   glTranslatef(550.0,290.0,0.0);
+   glBegin(GL_TRIANGLES);
+   glVertex2f(-30.0f,0.0f);
+   glVertex2f(0.0f,30.0f);
+   glVertex2f(30.0f,0.0f);
+   glEnd();
    glPopMatrix();
 
    glPushMatrix();
    glTranslatef(290.0,415.0,0.0);
-   glRectf(50.0f,50.00f, 0.00f, -0.75f);
+   glBegin(GL_TRIANGLES);
+   glVertex2f(-30.0f,0.0f);
+   glVertex2f(0.0f,30.0f);
+   glVertex2f(30.0f,0.0f);
+   glEnd();
    glPopMatrix();
 
-
- //glutSwapBuffers();
 }
 
 void fork()
@@ -64,16 +98,20 @@ void fork()
   glLineWidth(4.0);
   glColor3f(0.0f,0.0f,0.0f);
 
+  glPushMatrix();
   glBegin(GL_LINE_STRIP);
-    //glVertex2f(195,235);
     glVertex2f(240,260);
     glVertex2f(195,240);
   glEnd();
+  glPopMatrix();
 
+
+  glPushMatrix();
   glBegin(GL_LINE_STRIP);
     glVertex2f(315,205);
     glVertex2f(315,155);
   glEnd();
+  glPopMatrix();
 
   glBegin(GL_LINE_STRIP);
     glVertex2f(260,330);
@@ -99,20 +137,6 @@ void fork()
 void setup() {
        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 }
-
-/*
-
-void reshape(int x, int y)
-{
-    if (y == 0 || x == 0) return;
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(39.0,(GLdouble)x/(GLdouble)y,0.6,21.0);
-    glMatrixMode(GL_MODELVIEW);
-    glViewport(0,0,x,y);  //Use the whole window for rendering
-}
-
-*/
 
 
 
@@ -162,14 +186,46 @@ void drawFilledCircle(GLfloat x, GLfloat y, GLfloat radius)
 }
 
 
-
 void myDisplay(void)
 {
     glClearColor(1.0, 1.0, 1.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    GLfloat mat_ambient[]={0.7f,0.7f,0.7f,1.0f};
+    GLfloat mat_diffuse[]={0.5f,0.5f,0.5f,1.0f};
+    GLfloat mat_specular[]={1.0f,1.0f,1.0f,1.0f};
+    GLfloat mat_shininess[]={50.0f};
+    GLfloat lightIntensity[]={0.7f,0.7f,0.7f,1.0f};
+    GLfloat light_position[]={0.0f,0.0f,0.0f,1.0f};
+
+    glMaterialfv(GL_FRONT,GL_AMBIENT,mat_ambient);
+    glMaterialfv(GL_FRONT,GL_DIFFUSE,mat_diffuse);
+    glMaterialfv(GL_FRONT,GL_SPECULAR,mat_specular);
+    glMaterialfv(GL_FRONT,GL_SHININESS,mat_shininess);
+
+    glLightfv(GL_LIGHT0,GL_POSITION,light_position);
+    glLightfv(GL_LIGHT0,GL_DIFFUSE,lightIntensity);
+
+
+
+   // glPushMatrix();
+    drawFilledCircle(550.0,330.0,10);
+    //glPopMatrix();
+    glPushMatrix();
+    drawFilledCircle(90.0,330.0,10);
+    glPopMatrix();
+    glPushMatrix();
+    drawFilledCircle(400.0,130.0,10);
+    glPopMatrix();
+    glPushMatrix();
+    drawFilledCircle(200.0,130.0,10);
+    glPopMatrix();
+    glPushMatrix();
+    drawFilledCircle(290.0,455.0,10);
+    glPopMatrix();
+
+
     //setup();
-    //ellipse();
 
     drawFilledElipse(225,240,120);
 
@@ -184,7 +240,8 @@ void myDisplay(void)
     //main plate
     drawFilledCircle(315,270,45);
 
-    man();
+    man1();
+    spheres();
     fork();
 
     glRectf(80.0f,2.75f, 0.00f, -0.75f);
