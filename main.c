@@ -21,8 +21,62 @@ void myInit(void)
 }
 
 
+void printtext(int x, int y, char*String)
+{
+//(x,y) is from the bottom left of the window
+    int i;
+    glDisable(GL_TEXTURE_2D);
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+    glOrtho(0, 640, 0,480, -1.0f, 1.0f);
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+    glPushAttrib(GL_DEPTH_TEST);
+    glDisable(GL_DEPTH_TEST);
+    glRasterPos2i(x,y);
+    for (i=0; i<strlen(String); i++)
+    {
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, String[i]);
+    }
+    glPopAttrib();
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
+    glEnable(GL_TEXTURE_2D);
+    glPopMatrix();
+
+}
+
+void display2(void)
+{
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glEnable(GL_DEPTH_TEST|GL_TEXTURE_2D);
+
+    char string[64];
+    glColor3f(0.0,1.0,0.0);
+    sprintf(string, "Newton");
+    printtext(320,420,string);
+
+    sprintf(string, "Aristotle");
+    printtext(510,260,string);
+    sprintf(string,"Plato");
+    printtext(170,60,string);
+    //glColor3f(1.0,0.0,0.0);
+    sprintf(string, "Schrodinger");
+    printtext(20,260,string);
+    sprintf(string, "Epicurus");
+    printtext(360,60,string);
+    glutSwapBuffers();
+}
+
+
 void draw_triangle()
 {
+    glColor3f(0.9, 0.3, 0.2);
+
     glBegin(GL_TRIANGLES);
     glVertex2f(-30.0f,0.0f);
     glVertex2f(0.0f,30.0f);
@@ -31,35 +85,61 @@ void draw_triangle()
 
 }
 
+/* The five philosophers written as seperate functions
+This is such a bad idea right now but i dunno how else can i make it work!! */
+void philosopher1()
+{
+    glTranslatef(90.0,290.0,0.0);
+    draw_triangle();
+}
+
+void philosopher2()
+{
+   glTranslatef(200.0,90.0,0.0);
+   draw_triangle();
+}
+
+void philosopher3()
+{
+   glTranslatef(400.0,90.0,0.0);
+   draw_triangle();
+}
+
+void philosopher4()
+{
+  glTranslatef(550.0,290.0,0.0);
+  draw_triangle();
+}
+
+void philosopher5()
+{
+   glTranslatef(290.0,415.0,0.0);
+   draw_triangle();
+}
 
 void man1()
 {
 
-   glColor3f(0.9, 0.3, 0.2);
+   //glColor3f(0.9, 0.3, 0.2);
 
    glPushMatrix();
-   glTranslatef(90.0,290.0,0.0);
-   draw_triangle();
+   philosopher1();
    glPopMatrix();
 
    glPushMatrix();
-   glTranslatef(200.0,90.0,0.0);
-   draw_triangle();
+   philosopher2();
    glPopMatrix();
 
    glPushMatrix();
-   glTranslatef(400.0,90.0,0.0);
-   draw_triangle();
+   philosopher3();
    glPopMatrix();
 
    glPushMatrix();
-   glTranslatef(550.0,290.0,0.0);
-   draw_triangle();
+   philosopher4();
    glPopMatrix();
 
    glPushMatrix();
-   glTranslatef(290.0,415.0,0.0);
-   draw_triangle();
+   philosopher5();
    glPopMatrix();
 
 }
@@ -82,7 +162,7 @@ void fork2()
 }
 
 
-void fork3()
+void fork5()
 {
     glBegin(GL_LINE_STRIP);
         glVertex2f(260,330);
@@ -99,7 +179,7 @@ void fork4()
   glEnd();
 }
 
-void fork5()
+void fork3()
 {
     glBegin(GL_LINE_STRIP);
         glVertex2f(440,230);
@@ -109,7 +189,7 @@ void fork5()
 
 void fork()
 {
-  glLineWidth(4.0);
+  glLineWidth(5.0);
   glColor3f(0.0f,0.0f,0.0f);
 
   glPushMatrix();
@@ -119,14 +199,13 @@ void fork()
 
 
   glPushMatrix();
-  //glTranslatef(0.0,-95.0,0.0);
+ // glTranslatef(0.0,-95.0,0.0);
   fork2();
   glPopMatrix();
 
-
   glPushMatrix();
- // glTranslatef(-50.0,50.0,0.0);
-  fork3();
+ // glTranslatef(75.0,-60.0,0.0);
+    fork3();
   glPopMatrix();
 
   glPushMatrix();
@@ -135,13 +214,131 @@ void fork()
   glPopMatrix();
 
   glPushMatrix();
- //glTranslatef(75.0,-60.0,0.0);
-    fork5();
+ // glTranslatef(-50.0,50.0,0.0);
+  fork5();
   glPopMatrix();
+
+
 
   glutSwapBuffers();
 
 }
+
+
+void case1()
+{
+     glLineWidth(5.0);
+     glColor3f(0.0f,0.0f,0.0f);
+
+     glPushMatrix();
+     glTranslatef(-105.0,-40.0,0.0f);
+        fork1();
+     glPopMatrix();
+
+     glPushMatrix();
+        glTranslatef(0.0,-95.0,0.0);
+        fork2();
+     glPopMatrix();
+
+    fork3();
+    fork4();
+    fork5();
+}
+
+
+void case2()
+{
+  glLineWidth(5.0);
+  glColor3f(0.0f,0.0f,0.0f);
+
+  fork1();
+
+  glPushMatrix();
+  glTranslatef(0.0,-95.0,0.0);
+  fork2();
+  glPopMatrix();
+
+  glPushMatrix();
+  glTranslatef(75.0,-60.0,0.0);
+    fork3();
+  glPopMatrix();
+
+  fork4();
+  fork5();
+
+  glutSwapBuffers();
+
+}
+
+void case3()
+{
+  glLineWidth(5.0);
+  glColor3f(0.0f,0.0f,0.0f);
+
+  fork1();
+  fork2();
+
+
+  glPushMatrix();
+  glTranslatef(75.0,-60.0,0.0);
+    fork3();
+  glPopMatrix();
+
+  glPushMatrix();
+  glTranslatef(55.0,40,0.0);
+    fork4();
+  glPopMatrix();
+
+  fork5();
+  glutSwapBuffers();
+}
+
+void case4()
+{
+  glLineWidth(5.0);
+  glColor3f(0.0f,0.0f,0.0f);
+
+
+  fork1();
+  fork2();
+  fork3();
+
+  glPushMatrix();
+    glTranslatef(55.0,40,0.0);
+    fork4();
+  glPopMatrix();
+
+  glPushMatrix();
+    glTranslatef(-50.0,50.0,0.0);
+    fork5();
+  glPopMatrix();
+  glutSwapBuffers();
+}
+
+void case5()
+{
+  glLineWidth(5.0);
+  glColor3f(0.0f,0.0f,0.0f);
+
+  glPushMatrix();
+    glTranslatef(-105.0,-40.0,0.0f);
+    fork1();
+  glPopMatrix();
+
+    fork2();
+    fork3();
+    fork4();
+
+  glPushMatrix();
+    glTranslatef(-50.0,50.0,0.0);
+    fork5();
+  glPopMatrix();
+
+glutSwapBuffers();
+
+}
+
+
 
 //making the background White
 void setup() {
@@ -197,6 +394,7 @@ void displayCB(void)
 {
     glClearColor(1.0, 1.0, 1.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+   // glLoadIdentity();
 
     glPushMatrix();
     glColor3d(0.9,0.3,0.2);
@@ -239,10 +437,23 @@ void displayCB(void)
     glPopMatrix();
 
     man1();
-    fork();
+    //fork();
+
+    display2();
+    switch(n){
+
+   case 0: fork();
+   case 1: case1();
+   case 2: case2();
+   case 3: case3();
+   case 4: case4();
+   case 5: case5();
+
+   glutSwapBuffers();
+
+    }
 
 
-   // glRectf(80.0f,2.75f, 0.00f, -0.75f);
     glEnd();
     glFlush();
 
@@ -255,25 +466,7 @@ void myDisplay(void)
     glClearColor(1.0, 1.0, 1.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    //glLightfv(GLenum source, GLenum parameter, GLfloat *pointer_to_array);
-    //glLightf(GLenum source, GLenum parameter, GLfloat value);
-
-
-    GLfloat mat_ambient[]={0.7f,0.7f,0.7f,1.0f};
-    GLfloat mat_diffuse[]={0.5f,0.5f,0.5f,1.0f};
-    GLfloat mat_specular[]={1.0f,1.0f,1.0f,1.0f};
-    GLfloat mat_shininess[]={50.0f};
-    GLfloat lightIntensity[]={0.7f,0.7f,0.7f,1.0f};
-    GLfloat light_position[]={1.0f,2.0f,3.0f,1.0f};
-
-    glMaterialfv(GL_FRONT,GL_AMBIENT,mat_ambient);
-    glMaterialfv(GL_FRONT,GL_DIFFUSE,mat_diffuse);
-    glMaterialfv(GL_FRONT,GL_SPECULAR,mat_specular);
-    glMaterialfv(GL_FRONT,GL_SHININESS,mat_shininess);
-
-    glLightfv(GL_LIGHT0,GL_POSITION,light_position);
-    glLightfv(GL_LIGHT0,GL_DIFFUSE,lightIntensity);
-
+    setup();
 
     glPushMatrix();
     glColor3d(0.9,0.3,0.2);
@@ -314,6 +507,7 @@ void myDisplay(void)
     drawFilledCircle(315,270,45);
     glPopMatrix();
 
+    display2();
     man1();
     fork();
 
@@ -337,9 +531,8 @@ int main(int argc, char ** argv)
     glutInitWindowPosition(100, 150);
     glutCreateWindow("Dining Philosopher's");
 
-
-   // glutDisplayFunc(myDisplay);
-    glutDisplayFunc(myDisplay);
+  //  glutDisplayFunc(myDisplay);
+    glutDisplayFunc(displayCB);
     myInit();
     glutMainLoop();
     return 0;
