@@ -58,20 +58,99 @@ void display2(void)
     char string[64];
     glColor3f(0.0,1.0,0.0);
     sprintf(string, "Newton");
-    printtext(320,420,string);
+    printtext(335,420,string);
 
     sprintf(string, "Aristotle");
     printtext(510,260,string);
     sprintf(string,"Plato");
-    printtext(170,60,string);
+    printtext(190,60,string);
     //glColor3f(1.0,0.0,0.0);
     sprintf(string, "Schrodinger");
-    printtext(20,260,string);
+    printtext(40,260,string);
     sprintf(string, "Epicurus");
-    printtext(360,60,string);
+    printtext(380,60,string);
     glutSwapBuffers();
 }
 
+
+void mb1()//right side upper one
+{
+    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST|GL_TEXTURE_2D);
+	char string[64];
+
+    glPushMatrix();
+
+    //glColor3f(1.0f,0.0f,0.0f);
+    glTranslated(550,340,0);
+
+
+    glPushMatrix();
+    drawFilledCircle(7,7,5);
+    drawFilledCircle(18,20,7);
+    drawFilledCircle(50,50,30);
+    glPopMatrix();
+
+    glPopMatrix();
+    //glutPostRedisplay();
+    //glutSwapBuffers();
+}
+
+void mb2()//top
+{
+    glPushMatrix();
+    glColor3f(1.0f,0.0f,0.0f);
+    glTranslated(300,450,0);
+    glPushMatrix();
+    drawFilledCircle(7,7,5);
+    drawFilledCircle(20,7,7);
+    drawFilledCircle(60,7,30);
+    glPopMatrix();
+    glPopMatrix();
+
+}
+
+void mb3()//bottom right
+{
+    glPushMatrix();
+    glColor3f(1.0f,0.0f,0.0f);
+    glTranslated(445,145,0);
+    glPushMatrix();
+    drawFilledCircle(7,7,5);
+    drawFilledCircle(18,20,7);
+    drawFilledCircle(50,50,30);
+    glPopMatrix();
+    glPopMatrix();
+
+}
+
+void mb4()//bottom left
+{
+    glPushMatrix();
+    glColor3f(1.0f,0.0f,0.0f);
+    glTranslated(175,140,0);
+    glPushMatrix();
+    drawFilledCircle(0,7,5);
+    drawFilledCircle(-15,20,7);
+    drawFilledCircle(-40,50,30);
+    glPopMatrix();
+    glPopMatrix();
+
+}
+void mb5()//left side upper one
+{
+    glPushMatrix();
+
+    glTranslated(70,340,0);
+    glPushMatrix();
+    drawFilledCircle(0,7,5);
+    drawFilledCircle(-12,20,7);
+    drawFilledCircle(-35,50,30);
+
+    glPopMatrix();
+    glPopMatrix();
+
+}
 
 void draw_triangle()
 {
@@ -243,6 +322,8 @@ void case1()
     fork3();
     fork4();
     fork5();
+
+
 }
 
 
@@ -266,8 +347,7 @@ void case2()
   fork4();
   fork5();
 
-  glutSwapBuffers();
-
+ // glutSwapBuffers();
 }
 
 void case3()
@@ -290,7 +370,8 @@ void case3()
   glPopMatrix();
 
   fork5();
-  glutSwapBuffers();
+
+ // glutSwapBuffers();
 }
 
 void case4()
@@ -312,7 +393,7 @@ void case4()
     glTranslatef(-50.0,50.0,0.0);
     fork5();
   glPopMatrix();
-  glutSwapBuffers();
+  //glutSwapBuffers();
 }
 
 void case5()
@@ -333,8 +414,7 @@ void case5()
     glTranslatef(-50.0,50.0,0.0);
     fork5();
   glPopMatrix();
-
-glutSwapBuffers();
+  //glutSwapBuffers();
 
 }
 
@@ -394,6 +474,7 @@ void displayCB(void)
 {
     glClearColor(1.0, 1.0, 1.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    //glEnable(GL_TEXTURE_2D);
    // glLoadIdentity();
 
     glPushMatrix();
@@ -444,6 +525,7 @@ void displayCB(void)
 
    case 0: fork();
    case 1: case1();
+
    case 2: case2();
    case 3: case3();
    case 4: case4();
@@ -468,6 +550,7 @@ void myDisplay(void)
 
     setup();
 
+
     glPushMatrix();
     glColor3d(0.9,0.3,0.2);
     glPushMatrix();
@@ -486,7 +569,6 @@ void myDisplay(void)
     drawFilledCircle(290.0,455.0,10);
     glPopMatrix();
     glPopMatrix();
-
 
     drawFilledElipse(225,240,120);
 
@@ -511,7 +593,6 @@ void myDisplay(void)
     man1();
     fork();
 
-    glRectf(80.0f,2.75f, 0.00f, -0.75f);
     glEnd();
     glFlush();
 }
